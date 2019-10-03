@@ -32,7 +32,7 @@ case class SplunkExtractReader(inputFileName: String, outputFilePath: String) {
     for (line <- bufferedSource.getLines) {
       val cols = line.split(",").map(_.trim)
       val extract = FileExtract(cols(0), cols(1), cols(2))
-      printWriter.println(extract.sourceData)
+      printWriter.println(UtrExtractor(extract.sourceData).extractFormId.getOrElse(""))
     }
     bufferedSource.close
     printWriter.close()
